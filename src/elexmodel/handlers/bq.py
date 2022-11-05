@@ -70,8 +70,6 @@ class JsonUtil(ClientUtil):
         if not filename.endswith(".json"):
             filename = f"{filename}.json"
         data = super().get(filename, **kwargs)
-        if load
-            return json.load(data)
         return data
 
 
@@ -85,7 +83,6 @@ class CsvUtil(ClientUtil):
         if not filename.endswith(".csv"):
             filename = f"{filename}.csv"
         super().put(filename, data, **kwargs)
-
     def get(self, filename, load=True, **kwargs):
         if not filename.endswith(".csv"):
             filename = f"{filename}.csv"
