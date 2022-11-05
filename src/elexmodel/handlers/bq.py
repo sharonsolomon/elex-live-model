@@ -65,7 +65,6 @@ class JsonUtil(ClientUtil):
         if not filename.endswith(".json"):
             filename = f"{filename}.json"
         super().put(filename, data, **kwargs)
-    
     def get(self, filename, load=True, **kwargs):
         if not filename.endswith(".json"):
             filename = f"{filename}.json"
@@ -77,7 +76,6 @@ class JsonUtil(ClientUtil):
 
 class CsvUtil(ClientUtil):
 
-
     def put(self, filename, data, **kwargs):
         """
         Put a CSV to base_client
@@ -85,7 +83,6 @@ class CsvUtil(ClientUtil):
         if not filename.endswith(".csv"):
             filename = f"{filename}.csv"
         super().put(filename, data, **kwargs)
-
     def get(self, filename, load=True, **kwargs):
         if not filename.endswith(".csv"):
             filename = f"{filename}.csv"
