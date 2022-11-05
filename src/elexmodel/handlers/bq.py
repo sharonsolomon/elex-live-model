@@ -75,7 +75,6 @@ class JsonUtil(ClientUtil):
 
 
 class CsvUtil(ClientUtil):
-
     def put(self, filename, data, **kwargs):
         """
         Put a CSV to base_client
