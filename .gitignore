@@ -26,3 +26,4 @@ outtest.csv
 /.aws/
 tests/fixtures/config/2018-11-06_GA_G.json
 tox.ini
+tox.ini
