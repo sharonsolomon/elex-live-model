@@ -3,7 +3,7 @@ import logging
 import numpy as np
 import pandas as pd
 
-from elexmodel.handlers import s3
+from elexmodel.handlers import base_client
 from elexmodel.handlers.config import ConfigHandler
 from elexmodel.handlers.data.CombinedData import CombinedDataHandler
 from elexmodel.handlers.data.ModelResults import ModelResultsHandler
@@ -12,7 +12,7 @@ from elexmodel.logging import initialize_logging
 from elexmodel.models.GaussianElectionModel import GaussianElectionModel
 from elexmodel.models.NonparametricElectionModel import NonparametricElectionModel
 from elexmodel.utils.constants import AGGREGATE_ORDER, VALID_AGGREGATES_MAPPING
-from elexmodel.utils.file_utils import APP_ENV, S3_FILE_PATH, TARGET_BUCKET
+from elexmodel.utils.file_utils import APP_ENV, ENV_FILE_PATH, TARGET_BUCKET
 from elexmodel.utils.math_utils import compute_error, compute_frac_within_pi, compute_mean_pi_length
 
 initialize_logging()
@@ -134,7 +134,7 @@ class ModelClient(object):
 
         LOG.info("Getting config: %s", election_id)
         config_handler = ConfigHandler(
-            election_id, config=raw_config, s3_client=s3.S3JsonUtil(TARGET_BUCKET), save=save_config
+            election_id, config=raw_config, client=base_client.JsonUtil(TARGET_BUCKET), save=save_config
         )
 
         self._check_input_parameters(
@@ -161,7 +161,7 @@ class ModelClient(object):
             estimands,
             estimand_baselines,
             data=preprocessed_data,
-            s3_client=s3.S3CsvUtil(TARGET_BUCKET),
+            client=base_client.CsvUtil(TARGET_BUCKET),
         )
         preprocessed_data_handler.data = preprocessed_data_handler.select_rows_in_states(
             preprocessed_data_handler.data, states_with_election
@@ -300,7 +300,7 @@ class HistoricalModelClient(ModelClient):
         geographic_unit_type,
         **kwargs,
     ):
-        config_handler = ConfigHandler(election_id, s3_client=s3.S3JsonUtil(TARGET_BUCKET))
+        config_handler = ConfigHandler(election_id, client=base_client.JsonUtil(TARGET_BUCKET))
         historical_election_ids = config_handler.get_historical_election_ids(office)
         estimand_baselines = config_handler.get_estimand_baselines(office, estimands)
         if len(historical_election_ids) == 0:
@@ -362,7 +362,7 @@ class HistoricalModelClient(ModelClient):
             geographic_unit_type,
             estimands,
             estimand_baselines,
-            s3_client=s3.S3CsvUtil(TARGET_BUCKET),
+            client=base_client.CsvUtil(TARGET_BUCKET),
             historical=True,
         )
         results_to_return = [f"results_{estimand}" for estimand in estimands]
@@ -479,6 +479,6 @@ class HistoricalModelClient(ModelClient):
         return all_evaluations
 
     def _write_evaluation(self, evaluation, election_id, office, geographic_unit_type, estimand):
-        s3_client = s3.S3JsonUtil(TARGET_BUCKET)
-        path = f"{S3_FILE_PATH}/{election_id}/evaluation/{office}/{geographic_unit_type}/{estimand}/current.json"
-        s3_client.put(path, evaluation)
+        client = base_client.JsonUtil(TARGET_BUCKET)
+        path = f"{ENV_FILE_PATH}/{election_id}/evaluation/{office}/{geographic_unit_type}/{estimand}/current.json"
+        client.put(path, evaluation)

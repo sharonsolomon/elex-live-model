@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-from elexmodel.handlers import s3
-from elexmodel.utils.file_utils import S3_FILE_PATH, TARGET_BUCKET, convert_df_to_csv
+from elexmodel.handlers import base_client
+from elexmodel.utils.file_utils import ENV_FILE_PATH, TARGET_BUCKET, convert_df_to_csv
 
 
 class CombinedDataHandler(object):
@@ -179,9 +179,9 @@ class CombinedDataHandler(object):
         return unexpected_units
 
     def write_data(self, election_id, office):
-        s3_client = s3.S3CsvUtil(TARGET_BUCKET)
+        client = base_client.CsvUtil(TARGET_BUCKET)
         # convert df to csv
         csv_data = convert_df_to_csv(self.current_data)
-        # put csv in s3
-        path = f"{S3_FILE_PATH}/{election_id}/results/{office}/{self.geographic_unit_type}/current.csv"
-        s3_client.put(path, csv_data)
+        # put csv in base_client
+        path = f"{ENV_FILE_PATH}/{election_id}/results/{office}/{self.geographic_unit_type}/current.csv"
+        client.put(path, csv_data)

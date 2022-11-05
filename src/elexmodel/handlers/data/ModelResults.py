@@ -2,9 +2,9 @@ from functools import reduce
 
 import pandas as pd
 
-from elexmodel.handlers import s3
+from elexmodel.handlers import base_client
 from elexmodel.utils.constants import VALID_AGGREGATES_MAPPING
-from elexmodel.utils.file_utils import S3_FILE_PATH, TARGET_BUCKET, convert_df_to_csv
+from elexmodel.utils.file_utils import ENV_FILE_PATH, TARGET_BUCKET, convert_df_to_csv
 
 
 class ModelResultsHandler(object):
@@ -104,15 +104,15 @@ class ModelResultsHandler(object):
 
     def write_data(self, election_id, office, geographic_unit_type):
         """
-        Saves dataframe of estimates for all estimands to S3
+        Saves dataframe of estimates for all estimands to base_client
         Different file by aggregate level
         """
         if not self.final_results:
             self.process_final_results()
-        s3_client = s3.S3CsvUtil(TARGET_BUCKET)
+        client = base_client.CsvUtil(TARGET_BUCKET)
         for key, value in self.final_results.items():
-            path = f"{S3_FILE_PATH}/{election_id}/predictions/{office}/{geographic_unit_type}/{key}/current.csv"
+            path = f"{ENV_FILE_PATH}/{election_id}/predictions/{office}/{geographic_unit_type}/{key}/current.csv"
             # convert df to csv
             csv_data = convert_df_to_csv(value)
-            # put csv in s3
-            s3_client.put(path, csv_data)
+            # put csv in base_client
+            client.put(path, csv_data)

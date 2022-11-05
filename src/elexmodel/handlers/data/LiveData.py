@@ -25,14 +25,14 @@ class MockLiveDataHandler(object):
         estimands,
         historical=False,
         data=None,
-        s3_client=None,
+        client=None,
         unexpected_units=0,
     ):
         self.election_id = election
         self.office_id = office_id
         self.geographic_unit_type = geographic_unit_type
         self.estimands = estimands
-        self.s3_client = s3_client
+        self.client = client
         self.historical = historical
         self.unexpected_rows = unexpected_units
 
@@ -57,7 +57,7 @@ class MockLiveDataHandler(object):
     def get_data(self):
         file_path = self.get_live_data_file_path()
 
-        # If local data file is not available, read data from s3
+        # If local data file is not available, read data from base_client
         if not Path(file_path).is_file():
             path_info = {
                 "election_id": self.election_id,
@@ -66,8 +66,8 @@ class MockLiveDataHandler(object):
             }
             # we're mimicking live data from a file of preprocessed data
             # but for a real live election, we will pull live data from dynamo
-            file_path = self.s3_client.get_file_path("preprocessed", path_info)
-            csv_data = self.s3_client.get(file_path)
+            file_path = self.client.get_file_path("preprocessed", path_info)
+            csv_data = self.client.get(file_path)
             # read data as a buffer
             live_data = StringIO(csv_data)
         else:

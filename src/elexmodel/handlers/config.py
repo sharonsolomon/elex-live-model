@@ -12,12 +12,12 @@ class ConfigHandler(object):
     Handler for model config
     """
 
-    def __init__(self, election_id, s3_client=None, config=None, save=False):
+    def __init__(self, election_id, client=None, config=None, save=False):
         """
-        Initialize config. If not present, download from s3
+        Initialize config. If not present, download from base_client
         """
         self.election_id = election_id
-        self.s3_client = s3_client
+        self.client = client
         self.local_file_path = self.get_config_file_path()
         if config:
             self.config = config
@@ -41,11 +41,11 @@ class ConfigHandler(object):
         if Path(self.local_file_path).is_file():
             with open(self.local_file_path, "r") as f:
                 config = json.load(f)
-        # Else, get config from S3
+        # Else, get config from base_client
         else:
             path_info = {"election_id": self.election_id}
-            file_path = self.s3_client.get_file_path("config", path_info)
-            config = self.s3_client.get(file_path)
+            file_path = self.client.get_file_path("config", path_info)
+            config = self.client.get(file_path)
         return config
 
     def _get_office_subconfig(self, office):

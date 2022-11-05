@@ -21,18 +21,18 @@ class PreprocessedDataHandler(object):
         geographic_unit_type,
         estimands,
         estimand_baselines,
-        s3_client=None,
+        client=None,
         historical=False,
         data=None,
     ):
         """
-        Initialize preprocessed data. If not present, download from s3.
+        Initialize preprocessed data. If not present, download from base_client.
         """
         self.election_id = election_id
         self.office = office
         self.geographic_unit_type = geographic_unit_type
         self.estimands = estimands
-        self.s3_client = s3_client
+        self.client = client
         self.estimand_baselines = estimand_baselines
         self.historical = historical
 
@@ -44,15 +44,15 @@ class PreprocessedDataHandler(object):
             self.data = self.get_data()
 
     def get_data(self):
-        # If local data file is not available, read data from s3
+        # If local data file is not available, read data from base_client
         if not Path(self.local_file_path).is_file():
             path_info = {
                 "election_id": self.election_id,
                 "office": self.office,
                 "geographic_unit_type": self.geographic_unit_type,
             }
-            file_path = self.s3_client.get_file_path("preprocessed", path_info)
-            csv_data = self.s3_client.get(file_path)
+            file_path = self.client.get_file_path("preprocessed", path_info)
+            csv_data = self.client.get(file_path)
             # read data as a buffer
             preprocessed_data = StringIO(csv_data)
         else:

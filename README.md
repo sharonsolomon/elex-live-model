@@ -126,8 +126,8 @@ Create a .env file in the top directory and add the below variables. Assuming yo
 ```
   APP_ENV=local
   DATA_ENV=dev
-  MODEL_S3_BUCKET=elex-models
-  MODEL_S3_PATH_ROOT=elex-models
+  MODEL_BUCKET=elex-models
+  MODEL_PATH_ROOT=elex-models
 ```
 
 ### Testing
