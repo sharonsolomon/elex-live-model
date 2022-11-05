@@ -70,6 +70,9 @@ class JsonUtil(ClientUtil):
         if not filename.endswith(".json"):
             filename = f"{filename}.json"
         data = super().get(filename, **kwargs)
+        if load:
+            return json.load(data)
+        
         return data
 
 
