@@ -34,7 +34,7 @@ from elexmodel.utils.file_utils import TARGET_BUCKET  # noqa: E402
     "--geographic_unit_type",
     "geographic_unit_type",
     default="county",
-    type=click.Choice(["county", "precinct", "county-district", "precinct-district"]),
+    type=click.Choice(["county", "precinct", "county-district", "precinct-district","type-precinct"]),
 )
 @click.option("--beta", "beta", default=1, type=int, help="manually add variance to Gaussian model")
 @click.option("--robust", "robust", is_flag=True, help="robust prediction intervals for nonparametric model")

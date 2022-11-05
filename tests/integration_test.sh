@@ -18,7 +18,7 @@ echo "Running VA Assembly 2017 county-district model"
 elexmodel 2017-11-07_VA_G --estimands=dem --office_id=Y --geographic_unit_type=county-district --percent_reporting 50
 
 echo "Running VA Governor 2017 precinct model with county classification fixed effects and ethnicity features"
-elexmodel 2017-11-07_VA_G --estimands=dem --office_id=G --geographic_unit_type=precinct --aggregates=county_classification --aggregates=postal_code --fixed_effects=county_classification --percent_reporting 10 --features=ethnicity_european --features=ethnicity_hispanic_and_portuguese
+elexmodel 2017-11-07_VA_G --estimands=dem --estimands=gop --estimands=turnout --office_id=G --geographic_unit_type=precinct --aggregates=county_classification --aggregates=postal_code --fixed_effects=county_classification --percent_reporting 10 --features=ethnicity_european --features=ethnicity_hispanic_and_portuguese
 
 echo "Running VA Governor 2017 precinct model as historical with county classification aggregates"
 elexmodel 2021-11-02_VA_G --estimands=dem --office_id=G --geographic_unit_type=precinct --percent_reporting 60 --historical --aggregates=county_classification

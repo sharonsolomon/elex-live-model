@@ -20,3 +20,8 @@ env/
 /data/
 /config/
 /wapoenv/
+/live/
+/notebooks/
+outtest.csv
+/.aws/
+tests/fixtures/config/2018-11-06_GA_G.json

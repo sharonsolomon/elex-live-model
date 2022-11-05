@@ -56,6 +56,7 @@ Parameters for the CLI tool:
 | election_id          | string  | `YYYY-MM-DD_{geography}_{election_type}` geography is the state or `USA` and election type is `G` for general or `'P'` for primary |
 | estimands            | list    | party name (i.e. `dem`, `gop`) or turnout in a general; `{candidate_last_name}_{polID}` in a primary |
 | office_id            | string  | Presidential (`P`), Senate (`S`), House (`H`), Governor (`G`), state Senate (`Z`), state House (`Y`) |
+[ 
 | geographic_unit_type | string  | `county`, `precinct`, `county-district`, or `precinct-district` |
 | percent_reporting    | numeric | 0-100 |
 | historical           | flag    |       |
