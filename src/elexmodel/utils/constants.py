@@ -7,3 +7,6 @@ VALID_AGGREGATES_MAPPING = {
 }
 
 AGGREGATE_ORDER = ["postal_code", "district", "county_classification", "county_fips"]
+
+
+TARGET_BUCKET = "elections-data"

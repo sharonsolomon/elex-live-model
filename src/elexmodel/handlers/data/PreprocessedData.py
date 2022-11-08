@@ -7,7 +7,7 @@ import pandas as pd
 from elexmodel.utils.file_utils import create_directory, get_directory_path
 
 LOG = logging.getLogger(__name__)
-TARGET_BUCKET = f"{os.getenv('TARGET_BUCKET')}"
+TARGET_BUCKET = f"{os.getenv('TARGET_BUCKET')
 
 class PreprocessedDataHandler(object):
     """
