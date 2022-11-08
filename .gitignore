@@ -27,3 +27,6 @@ outtest.csv
 tests/fixtures/config/2018-11-06_GA_G.json
 tox.ini
 tox.ini
+tox.ini
+notebooks/test-model.ipynb
+electionresults/
