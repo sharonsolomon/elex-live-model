@@ -3,7 +3,7 @@ import pandas as pd
 
 from elexmodel.handlers import base_client
 from elexmodel.utils.file_utils import ENV_FILE_PATH, TARGET_BUCKET, convert_df_to_csv
-
+TARGET_BUCKET = f"{os.getenv('TARGET_BUCKET')}"
 
 class CombinedDataHandler(object):
     """

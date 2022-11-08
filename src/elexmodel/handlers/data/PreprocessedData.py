@@ -7,7 +7,7 @@ import pandas as pd
 from elexmodel.utils.file_utils import create_directory, get_directory_path
 
 LOG = logging.getLogger(__name__)
-
+TARGET_BUCKET = f"{os.getenv('TARGET_BUCKET')}"
 
 class PreprocessedDataHandler(object):
     """
@@ -63,7 +63,7 @@ class PreprocessedDataHandler(object):
         return self.load_data(data, self.estimand_baselines)
 
     def get_preprocessed_data_path(self):
-        directory_path = get_directory_path()
+        directory_path = TARGET_BUCKET
         path = f"{directory_path}/data/{self.election_id}/{self.office}/data_{self.geographic_unit_type}.csv"
         return path
 

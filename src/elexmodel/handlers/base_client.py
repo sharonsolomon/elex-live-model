@@ -8,9 +8,13 @@ import json
 LOG = logging.getLogger(__name__)
 PROJECT_ID = os.getenv("PROJECT_ID")
 JUPYTER_STATUS = os.getenv("JUPYTER_STATUS")
+TARGET_BUCKET = os.getenv('TARGET_BUCKET')
 
 class ClientUtil(object):
     def __init__(self, bucket_name, client=None):
+        
+        if not bucket_name:
+            bucket_name = TARGET_BUCKET
         self.bucket_name = bucket_name
         if not client:    
             if JUPYTER_STATUS == "colab":
@@ -26,7 +30,7 @@ class ClientUtil(object):
         bucket_instance = self.client.get_bucket(self.bucket_name)
         blob = bucket_instance.get_blob(filename)
         if blob is None:
-            raise "key not in bucket"
+            raise Exception(f"key not in bucket at ({filename})")
         else:
             LOG.info("[%s] Retrieved %s from S3 (LastModified: %s)", self.bucket_name, filename, result["LastModified"])
         return blob

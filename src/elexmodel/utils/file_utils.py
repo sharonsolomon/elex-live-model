@@ -8,8 +8,8 @@ LOG = logging.getLogger(__name__)
 APP_ENV = os.getenv("APP_ENV")
 DATA_ENV = os.getenv("DATA_ENV")
 MODEL_BUCKET = os.getenv("MODEL_BUCKET")
-TARGET_BUCKET = f"{os.getenv('MODEL_BUCKET')}-{DATA_ENV}"
-ENV_FILE_PATH = f"{os.getenv('MODEL_PATH_ROOT')}-{DATA_ENV}"
+TARGET_BUCKET = f"{os.getenv('TARGET_BUCKET')}"
+ENV_FILE_PATH = f"{os.getenv('TARGET_BUCKET')}"
 
 
 def get_directory_path():

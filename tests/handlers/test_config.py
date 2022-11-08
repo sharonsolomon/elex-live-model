@@ -108,7 +108,7 @@ def test_get_geographic_unit_types(va_governor_config):
 
     office = "Y"
     states = config_handler.get_geographic_unit_types(office)
-    assert ["precinct-district", "county-district"] == states
+    assert ["precinct-district", "county-district","precinct"] == states
 
 
 def test_get_features(va_governor_config):
